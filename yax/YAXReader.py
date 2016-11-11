@@ -199,14 +199,13 @@ class YAXReader:
     def __init__(self, stream=None, use_lxml=False):
         self._cnds = []
         self.stream = stream
-        if use_lxml:
-            try:
+        try:
+            if use_lxml:
                 import lxml.etree as etree
                 Condition.LXML = True
-            except ImportError:
-                import xml.etree.ElementTree as etree
-                Condition.LXML = False
-        else:
+            else:
+                raise ImportError
+        except ImportError:
             import xml.etree.ElementTree as etree
             Condition.LXML = False
         YAXReader.etree = etree
